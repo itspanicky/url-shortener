@@ -10,6 +10,10 @@ class ShortUrl < ApplicationRecord
   def update_title!
   end
 
+  def public_attributes
+    self[:full_url]
+  end
+
   private
 
   def validate_full_url
