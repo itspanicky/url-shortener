@@ -5,6 +5,7 @@ class ShortUrl < ApplicationRecord
   validate :validate_full_url
 
   def short_code
+    self[:id].to_s(26)
   end
 
   def update_title!
