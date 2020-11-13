@@ -20,6 +20,13 @@ class ShortUrlsController < ApplicationController
   end
 
   def show
+    @short_url = ShortUrl.find_by(id: params[:id].to_i(26))
+
+    if @short_url
+      redirect_to @short_url.full_url
+    else
+      render :json => {:errors => "Url not-found"}, :status => 404
+    end
   end
 
   private
