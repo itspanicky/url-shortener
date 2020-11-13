@@ -18,6 +18,11 @@ class ShortUrl < ApplicationRecord
   private
 
   def validate_full_url
+    if URI.parse(self[:full_url]) && URI.parse(self[:full_url]).host
+      true
+    else
+      errors.add(:full_url, "Full url is not a valid url")
+    end
   end
 
 end

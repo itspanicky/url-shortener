@@ -15,6 +15,7 @@ class ShortUrlsController < ApplicationController
       render :json => { :short_code => @short_url.short_code}, status => 200
     else
       # If full_url is not valid, render error message, "Full url is not a valid url"
+      render :json => {:errors => @short_url.errors[:full_url]}, :status => 400
     end
   end
 
