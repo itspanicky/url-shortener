@@ -20,7 +20,7 @@ class ShortUrlsController < ApplicationController
   end
 
   def show
-    @short_url = ShortUrl.find_by(id: params[:id].to_i(26))
+    @short_url = ShortUrl.find_by_short_code(params[:id])
 
     if @short_url
       @short_url.update(click_count: @short_url.click_count + 1)
