@@ -12,6 +12,7 @@ class ShortUrlsController < ApplicationController
   def create
     @short_url = ShortUrl.new(url_params)
     if @short_url.save
+      UpdateTitleJob.perform_later(@short_url.id)
       render :json => { :short_code => @short_url.short_code}, status => 200
     else
       # If full_url is not valid, render error message, "Full url is not a valid url"
