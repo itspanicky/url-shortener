@@ -5,7 +5,11 @@ class ShortUrl < ApplicationRecord
   validate :validate_full_url
 
   def short_code
-    self[:id].to_s(26)
+    if validate_full_url
+      self[:id].to_s(26)
+    else
+      nil
+    end
   end
 
   def update_title!
@@ -24,6 +28,7 @@ class ShortUrl < ApplicationRecord
   def validate_full_url
     if self[:full_url].blank?
       errors.add(:full_url, "can't be blank")
+      false
     else
       encoded_uri = URI.encode(self[:full_url])
       if URI.parse(encoded_uri) && URI.parse(encoded_uri).host
