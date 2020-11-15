@@ -24,10 +24,15 @@ class ShortUrl < ApplicationRecord
   def validate_full_url
     if self[:full_url].blank?
       errors.add(:full_url, "can't be blank")
-    elsif URI.parse(self[:full_url]) && URI.parse(self[:full_url]).host
-      true
     else
-      errors.add(:full_url, "Full url is not a valid url")
+      encoded_uri = URI.encode(self[:full_url])
+      if URI.parse(encoded_uri) && URI.parse(encoded_uri).host
+        true
+      else
+        errors.add(:full_url, "Full url is not a valid url")
+        errors.add(:full_url, "is not a valid url")
+        false
+      end
     end
   end
 
