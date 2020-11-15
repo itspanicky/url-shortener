@@ -1,3 +1,5 @@
+require "mechanize"
+
 class ShortUrl < ApplicationRecord
 
   CHARACTERS = [*'0'..'9', *'a'..'z', *'A'..'Z'].freeze
@@ -13,6 +15,7 @@ class ShortUrl < ApplicationRecord
   end
 
   def update_title!
+    self[:title] = Mechanize.new.get(self[:full_url]).title
   end
 
   def public_attributes
