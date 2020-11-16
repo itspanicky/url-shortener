@@ -5,6 +5,9 @@ A simple, yet effective, formula by multiplying the short_url id by a factor and
 - The factor that is multiplied by the short_url id, is an arbitrary number that can be hidden in a env file for security reasons. This factor prevents easy-to-guess short codes such as "1" from being generated.
 - This hashing method allows for a two-way lookup. Given just the short_code, such as when a user attempts to visit back the full_url, a reverse lookup to find the short_url is possible by coverting the short code string back into an integer with base 26 and dividing the value by the same factor.
 
+#### Additional Notes
+- Used gem, Mechanize, to parse urls and get their titles.
+- Refactored short_url_spec.rb to update expectations based on url shortening algorithm used.
 
 # Intial Setup
 
