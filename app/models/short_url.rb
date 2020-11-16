@@ -8,7 +8,7 @@ class ShortUrl < ApplicationRecord
 
   def short_code
     if validate_full_url
-      self[:id].to_s(26)
+      (self[:id] * 512).to_s(26)
     else
       nil
     end
@@ -23,7 +23,7 @@ class ShortUrl < ApplicationRecord
   end
 
   def self.find_by_short_code(short_code)
-    self.find_by(id: short_code.to_i(26))
+    self.find_by(id: short_code.to_i(26) / 512)
   end
 
   private
